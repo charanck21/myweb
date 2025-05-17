@@ -1,0 +1,26 @@
+pipeline{
+	agent any
+	stages{
+		stage("git-checkout"){
+			steps{
+				git credentialsId: 'gitck', url: 'https://github.com/charanck21/myweb.git'
+			}
+		}
+		stage("maven-build"){
+			steps{
+					sh "mvn clean package"
+					sh "mv target/*.war target/myweb.war"
+			}
+		}
+		stage("tomcat-deploy"){
+			steps{
+				sshagent(['tomcat-instance']){
+					sh ""
+						scp -o ScriptHodtKeyChecking=no target/myweb.war ec2-user@172.31.45.89:/home/ec2-user/tomcat/webapps/
+						ssh ec2-user@172.31.45.89 /home/ec2-user/tomcat/bin/startup.sh
+					""
+				}
+			}
+		}
+	}
+}
