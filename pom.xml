@@ -12,7 +12,11 @@
 	     <docker.image.prefix>kammana</docker.image.prefix>
 	     <maven.compiler.source>1.8</maven.compiler.source>
 	     <maven.compiler.target>1.8</maven.compiler.target>
-	</properties>	
+	</properties>
+	<properties>
+		<docker.image.prefix>kammana</docker.image.prefix>
+		<sonar.host.url>http://16.16.123.103:9000/</sonar.host.url>
+	</properties>
 	<dependencies>
 		<dependency>
 		    <groupId>com.oracle.bedrock</groupId>
